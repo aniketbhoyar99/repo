@@ -8,6 +8,7 @@ let requestHeaders = {
 const api = axios.create({
     baseURL: 'http://best-it-training.com/api',
     headers: requestHeaders
+    
 });
 
-export default api;
+export default api
