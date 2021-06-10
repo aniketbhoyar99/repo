@@ -8,7 +8,6 @@ import './../../src/App.css'
 
 const Login = () => {
 
-    const [wrongCredential, setWrongCredential] = useState();
     const [error, setError] = useState();
     let history = useHistory();
 
@@ -17,7 +16,7 @@ const Login = () => {
         password: ""
     };
 
-    const submitHandler = values => {
+    const submitHandler = values => { 
 
         api.post('/login', values).then(response => {
             console.log("response", response);
