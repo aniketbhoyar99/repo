@@ -22,7 +22,7 @@ const Login  = () => {
             console.log("response", response);
             sessionStorage.setItem('token', 'Bearer ' + response.data.data.token);
             console.log('--->', response.data.success);
-            history.push('/dashboard');
+            history.push('/dashboard')
             // redirect to dashboard
         }).catch(error => {
             setError(error.response.data.message.email)
