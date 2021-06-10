@@ -1,11 +1,16 @@
 import axios from 'axios';
 import { Formik, Form, ErrorMessage, Field } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router';
 import * as Yup from 'yup';
-import api from './../API/api'
+import api from '../API/api'
+import './../../src/App.css'
 
 const Login = () => {
 
+    const [wrongCredential, setWrongCredential] = useState();
+    const [error, setError] = useState();
+    let history = useHistory();
 
     const initialValues = {
         email: "",
@@ -15,18 +20,14 @@ const Login = () => {
     const submitHandler = values => {
 
         api.post('/login', values).then(response => {
-            alert('Loing Success');
+            console.log("response", response);
             sessionStorage.setItem('token', 'Bearer ' + response.data.data.token);
+            console.log('--->', response.data.success);
+            history.push('/dashboard');
             // redirect to dashboard
+        }).catch(error => {
+            setError(error.response.data.message.email)
         })
-
-
-        // axios.post('http://best-it-training.com/api/login', values, headers)
-        //     .then((response) => {
-        //         // console.log(response.data.data.token)
-        //     }
-        //     )
-        .catch(error => console.log("i am error", error))
     }
     const validationHandler = Yup.object().shape({
         email: Yup.string().email().required(),
@@ -44,18 +45,25 @@ const Login = () => {
                             <div className="col-md-7">
                                 <h3>Login</h3>
                                 <Formik initialValues={initialValues} validationSchema={validationHandler} onSubmit={submitHandler}>
-                                    <Form action="#" method="post">
+                                    <Form className="user">
                                         <div className="form-group first">
                                             <label htmlFor="username">Username</label>
-                                            <Field type="text" name="email" className="form-control" placeholder="your-email@gmail.com" id="username" />
+                                            <Field type="email" name="email" className="form-control" placeholder="your-email@gmail.com" id="username" />
+                                            <ErrorMessage name="email" component='span' className="text-danger" />
                                         </div>
-                                        <ErrorMessage name="email" />
                                         <div className="form-group last mb-3">
                                             <label htmlFor="password">Password</label>
                                             <Field type="password" name="password" className="form-control" placeholder="Your Password" id="password" />
+                                            <ErrorMessage name="password" component='span' className="text-danger" />
                                         </div>
-                                        <ErrorMessage name="password" className="text-danger" />
                                         <button type="submit" defaultValue="Log In" className="btn btn-block btn-primary">Submit</button>
+                                        <br />
+                                        <br />
+                                        <div className="text-danger">
+                                            {
+                                                error
+                                            }
+                                        </div>
                                     </Form>
                                 </Formik>
                             </div>
@@ -63,7 +71,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
 
     )
 }
