@@ -11,7 +11,7 @@ const Login  = () => {
     const [error, setError] = useState();
     let history = useHistory();
 
-    const initialValues = {
+    const initialValues  = {
         email: "",
         password: ""
     };
