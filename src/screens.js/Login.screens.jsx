@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import api from '../API/api'
 import './../../src/App.css'
 
-const Login = () => {
+const Login  = () => {
 
     const [error, setError] = useState();
     let history = useHistory();
