@@ -2,7 +2,7 @@ import axios from "axios"
 
 let requestHeaders = {
     Accept: 'application/json',
-     Authorization: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
+    Authorization: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
 
 }
 
