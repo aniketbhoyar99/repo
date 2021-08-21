@@ -6,17 +6,17 @@ import * as Yup from 'yup';
 import api from '../API/api'
 import './../../src/App.css'
 
-const Login  = () => {
+const Login = () => {
 
     const [error, setError] = useState();
     let history = useHistory();
 
-    const initialValues  = {
+    const initialValues = {
         email: "",
         password: ""
     };
 
-    const submitHandler = values => { 
+    const submitHandler = values => {
 
         api.post('/login', values).then(response => {
             console.log("response", response);
